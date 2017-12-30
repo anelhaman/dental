@@ -107,6 +107,22 @@ body input select option button{
             background:  hsl(171, 100%, 41%);
           }
         }
+        #progressbar{
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 10%;
+          height: 5px;
+          float: left;
+          display: none;
+          z-index: 999;
+          .bgGradient(#3BED8D,#38ACC5);
+        }
+        .bgGradient(@primary,@second){
+          background: @primary;
+          background: -webkit-linear-gradient(to right, @primary, @second);
+          background: linear-gradient(to right, @primary, @second);
+      }
       }
     .footercontainer{
       display: block;
