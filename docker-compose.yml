@@ -1,0 +1,13 @@
+version: '2'
+services:
+  
+  php:
+    # image: php:7.1-apache
+    build: ./ # with pdo 
+    container_name: app_php7.1_apache
+    restart: always
+    volumes: 
+      - ./html/:/var/www/html
+    ports:
+      - 80:80
+      #public : container
