@@ -1,4 +1,4 @@
-package-lock.json
-package.json
-config/config.php
+html/package-lock.json
+html/package.json
+html/config/config.php
 html/phpinfo.php
