@@ -1,15 +1,5 @@
 <?php
 require_once 'autoload.php';
-
-
-
-$hn             = $data['hn'];
-$visitdate      = $data['visitdate'];
-$fullname       = $data['fullname'];
-$prescriptionno = $data['prescriptionno'];
-$gender         = $data['gender'];
-$age            = $data['age'];
-$rightname      = $data['rightname'];
 ?>
 
 
@@ -26,13 +16,14 @@ $rightname      = $data['rightname'];
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
   <title><?php echo TITLE;?></title>
 </head>
 <body>
   <div id="progressbar"></div>
-  <div class="container">
+  <div class="container" id="main">
       <div class="header">
-          <section class="hero is-medium is-primary is-bold ">
+          <section class="hero is-medium is-info is-bold ">
               <div class="hero-body ">
                 <div class="headcontainer">
                   <h1 class="title">
@@ -45,9 +36,19 @@ $rightname      = $data['rightname'];
               </div>
             </section>
       </div>
-      <div class="notification is-danger">
+      <div class="notification is-warning" id="aa">
                 <button class="delete"></button>
-                กรุณาตรวจสอบ <strong>เลขที่ใบสั่งยา </strong>  อีกครั้ง..
+                รายการนี้ถูก<strong> เพิ่มข้อมูลแล้ว</strong>
+                </div>
+      <div class="notification is-danger" id="wi">
+                <button class="delete"></button>
+                กรุณาตรวจสอบ <strong>เลขที่ใบสั่งยา </strong>  อีกครั้ง<br>
+                - <strong>ไม่พบข้อมูล </strong>เลขที่ใบสั่งยา <br>
+                </div>
+      <div class="notification is-warning" id="ce">
+                <button class="delete"></button>
+                กรุณาตรวจสอบ <strong>การเชื่อมต่อ </strong>  อีกครั้ง <br>
+                - ไม่สามารถเข้าถึงฐานข้อมูลได้ <br>
                 </div>
         <div class="maincontainer">
             <div class="columns is-multiline is-desktop ">               
@@ -55,58 +56,58 @@ $rightname      = $data['rightname'];
                         <label> HN</label>
                         </div>
                     <div class="column is-3">
-                            <span id="hn" class="input" name="hn"><?php echo $hn; ?> </span>
+                            <span id="hn" class="input" name="hn"> </span>
                         </div>
                     <div class="column is-1">
                         <label> วันที่</label>
                         </div>
                     <div class="column is-2">
-                            <input type="date" id="visitdate" class="input" name="visitdate" value="<?php echo $visitdate; ?>">
+                            <input type="date" id="visitdate" class="input" name="visitdate" >
                         </div>
                     <div class="column is-2">
                         <label> เลขที่ใบสั่งยา</label>
                         </div>
                     <div class="column is-3">
-                            <input type="text" id="prescriptionno" class="input" name="prescriptionno" value="<?php  echo $prescriptionno; ?>" autofocus>
+                            <input type="text" id="prescriptionno" class="input" name="prescriptionno" autofocus>
                         </div>
 
                     <div class="column is-1 ">
                         <label> ชื่อ</label>
                         </div>
                     <div class="column is-3">
-                            <span id="fullname" class="input" name="fullname" ><?php echo $fullname; ?></span>
+                            <span id="fullname" class="input" name="fullname" ></span>
                         </div>
                     <div class="column is-1 ">
                         <label> เพศ</label>
                         </div>
                     <div class="column is-1">
-                            <span id="gender" class="input" name="gender" ><?php echo $gender; ?></span>
+                            <span id="gender" class="input" name="gender" ></span>
                         </div>
                     <div class="column is-1 ">
                         <label> อายุ</label>
                         </div>
                     <div class="column is-1">
-                            <span id="age" class="input" name="age"><?php echo $age; ?></span>
+                            <span id="age" class="input" name="age"></span>
                         </div>
                     <div class="column is-1 ">
                         <label> สิทธิ</label>
                         </div>
                     <div class="column is-3">
-                            <span id="rightname" class="input" name="rightname" ><?php echo $rightname; ?></span>
+                            <span id="rightname" class="input" name="rightname" ></span>
                         </div>
-            
+
             <div class="column is-one-quarter ">
                 <label> ประเภทผู้รับบริการ</label>
               </div>
             <div class="column is-one-quarter ">
               <div class="select">
-                <select id="denttype" class="input" name="denttype" >
-                    <option value="1" disabled>กลุ่มผู้หญิงตั้งครรภ์ (1)</option>
-                    <option value="2" disabled>กลุ่มเด็กก่อนวัยเรียน (2)</option>
-                    <option value="3" disabled>กลุ่มเด็กวัยเรียน (3)</option>
-                    <option value="4" disabled>กลุ่มผู้สูงอายุ (4)</option>
-                    <option value="5" selected>กลุ่มอื่นๆ (5)</option>
-                  </select>
+                <select id="denttype" class="input" name="denttype">
+                <option value=1 disabled>กลุ่มผู้หญิงตั้งครรภ์ (1)</option>
+                <option value=2 disabled>กลุ่มเด็กก่อนวัยเรียน (2)</option>
+                <option value=3 disabled>กลุ่มเด็กวัยเรียน (3)</option>
+                <option value=4 disabled>กลุ่มผู้สูงอายุ (4)</option>
+                <option value=5 selected>กลุ่มอื่นๆ (5)</option>
+                </select>
                 </div>  
               </div>
             <div class="column is-one-quarter ">
@@ -124,8 +125,21 @@ $rightname      = $data['rightname'];
                 <label>สถานศึกษา</label>
               </div>
             <div class="column is-one-quarter ">
-                <input type="text" id="schooltype" class="input" name="schooltype" >
-              </div>
+            <div class="select">
+                <select id="schooltype" class="input" name="schooltype">
+                <option value="-1">Select dropdown</option>
+                <option value=1 >ศพด (1)</option>
+                <option value=2 >ประถมศึกษารัฐบาล (2)</option>
+                <option value=3 >ประถมศึกษาเทศบาล (3)</option>
+                <option value=4 >ประถมศึกษาท้องถิ่น (4)</option>
+                <option value=5 >ประถมศึกษาเอกชน (5)</option>
+                <option value=6 >มัธยมศึกษารัฐบาล (6)</option>
+                <option value=7 >มัธยมศึกษาเทศบาล (7)</option>
+                <option value=8 >มัธยมศึกษาท้องถิ่น (8)</option>
+                <option value=9 >มัธยมศึกษาเอกชน (9)</option>
+                </select>
+            </div>
+            </div>
             <div class="column is-one-quarter ">
                 <label>ระดับการศึกษา</label>
               </div>
@@ -440,7 +454,7 @@ $rightname      = $data['rightname'];
           <p>
             <strong>eDMS (Dental Management System)</strong> The source code is licensed
             by <a href="http://www/cpa.go.th">www.cpa.go.th</a>. The website content
-            is licensed by <br><a href="http://www/cpa.go.th">Chaopraya Abhaiphubejhr Hospital 2016</a>.
+            is licensed by <br><a href="http://www/cpa.go.th">Chaopraya Abhaiphubejhr Hospital 2017</a>.
           </p>
         </div>
       </div>

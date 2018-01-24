@@ -2,17 +2,35 @@
 require_once '../autoload.php';
 header("Content-type: application/json");
 
-$prescriptionno = $_GET["prescriptionno"] ;
-$visitdate = $_GET["visitdate"] ;
+	$returnObject = array(
+		"apiVersion"  	=> 1.0,
+		"execute"     	=> floatval(round(microtime(true)-StTime,4)),
+	);
+	$returnObject['method'] = $_SERVER["REQUEST_METHOD"];
 
-$returnObject = array(
-	"apiVersion"  	=> 1.0,
-	"execute"     	=> floatval(round(microtime(true)-StTime,4)),
-);
+switch ($_SERVER["REQUEST_METHOD"]) {
+	case 'GET':
 
-$data = $patient->getDataPatient($visitdate,$prescriptionno);
+		$prescriptionno = $_GET["prescriptionno"] ;
+		$visitdate 			= $_GET["visitdate"] ;
+		$data 					= $patient->getDataPatient($visitdate,$prescriptionno);
+		$status 				= $patient->getDataVisitDent($data['id']);
 
-$returnObject['data'] = $data;
+		$returnObject['data'] 	= $data;
+		$returnObject['countStatus'] = $status;
+		break;
+
+	case 'POST': 
+
+		$data = $patient->newRecord($_POST);
+		$returnObject['data'] = $data;
+		
+		break;
+	
+	default:
+		break;
+}
+
 
 echo json_encode($returnObject);
 
